@@ -2,3 +2,11 @@ public:
     resource: "@PublicBundle/Resources/config/routing.yml"
     prefix:   /
 
+PublicBundle_shortcut:
+        resource: "@PublicBundle/Resources/config/routing/shortcut.yml"
+        prefix:   /shortcut
+
+PublicBundle_program:
+        resource: "@PublicBundle/Resources/config/routing/program.yml"
+        prefix:   /program
+

@@ -547,20 +547,23 @@ class appDevDebugProjectContainer extends Container
         $c = new \Doctrine\Common\Cache\ArrayCache();
         $c->setNamespace('sf2orm_default_107721d00168edf0836b63717b6a2c45');
 
-        $d = new \Doctrine\ORM\Configuration();
-        $d->setEntityNamespaces(array());
-        $d->setMetadataCacheImpl($a);
-        $d->setQueryCacheImpl($b);
-        $d->setResultCacheImpl($c);
-        $d->setMetadataDriverImpl(new \Doctrine\ORM\Mapping\Driver\DriverChain());
-        $d->setProxyDir('/Applications/MAMP/htdocs/shortcuts/app/cache/dev/doctrine/orm/Proxies');
-        $d->setProxyNamespace('Proxies');
-        $d->setAutoGenerateProxyClasses(true);
-        $d->setClassMetadataFactoryName('Doctrine\\ORM\\Mapping\\ClassMetadataFactory');
-        $d->setDefaultRepositoryClassName('Doctrine\\ORM\\EntityRepository');
-        $d->setNamingStrategy(new \Doctrine\ORM\Mapping\DefaultNamingStrategy());
+        $d = new \Doctrine\ORM\Mapping\Driver\DriverChain();
+        $d->addDriver(new \Doctrine\ORM\Mapping\Driver\AnnotationDriver($this->get('annotation_reader'), array(0 => '/Applications/MAMP/htdocs/shortcuts/src/baraut/PublicBundle/Entity')), 'baraut\\PublicBundle\\Entity');
 
-        $this->services['doctrine.orm.default_entity_manager'] = $instance = call_user_func(array('Doctrine\\ORM\\EntityManager', 'create'), $this->get('doctrine.dbal.default_connection'), $d);
+        $e = new \Doctrine\ORM\Configuration();
+        $e->setEntityNamespaces(array('PublicBundle' => 'baraut\\PublicBundle\\Entity'));
+        $e->setMetadataCacheImpl($a);
+        $e->setQueryCacheImpl($b);
+        $e->setResultCacheImpl($c);
+        $e->setMetadataDriverImpl($d);
+        $e->setProxyDir('/Applications/MAMP/htdocs/shortcuts/app/cache/dev/doctrine/orm/Proxies');
+        $e->setProxyNamespace('Proxies');
+        $e->setAutoGenerateProxyClasses(true);
+        $e->setClassMetadataFactoryName('Doctrine\\ORM\\Mapping\\ClassMetadataFactory');
+        $e->setDefaultRepositoryClassName('Doctrine\\ORM\\EntityRepository');
+        $e->setNamingStrategy(new \Doctrine\ORM\Mapping\DefaultNamingStrategy());
+
+        $this->services['doctrine.orm.default_entity_manager'] = $instance = call_user_func(array('Doctrine\\ORM\\EntityManager', 'create'), $this->get('doctrine.dbal.default_connection'), $e);
 
         $this->get('doctrine.orm.default_manager_configurator')->configure($instance);
 
@@ -2854,6 +2857,7 @@ class appDevDebugProjectContainer extends Container
         $instance->addPath('/Applications/MAMP/htdocs/shortcuts/vendor/symfony/symfony/src/Symfony/Bundle/TwigBundle/Resources/views', 'Twig');
         $instance->addPath('/Applications/MAMP/htdocs/shortcuts/vendor/symfony/swiftmailer-bundle/Symfony/Bundle/SwiftmailerBundle/Resources/views', 'Swiftmailer');
         $instance->addPath('/Applications/MAMP/htdocs/shortcuts/vendor/doctrine/doctrine-bundle/Doctrine/Bundle/DoctrineBundle/Resources/views', 'Doctrine');
+        $instance->addPath('/Applications/MAMP/htdocs/shortcuts/src/baraut/PublicBundle/Resources/views', 'Public');
         $instance->addPath('/Applications/MAMP/htdocs/shortcuts/src/Acme/DemoBundle/Resources/views', 'AcmeDemo');
         $instance->addPath('/Applications/MAMP/htdocs/shortcuts/vendor/symfony/symfony/src/Symfony/Bundle/WebProfilerBundle/Resources/views', 'WebProfiler');
         $instance->addPath('/Applications/MAMP/htdocs/shortcuts/vendor/sensio/distribution-bundle/Sensio/Bundle/DistributionBundle/Resources/views', 'SensioDistribution');
@@ -3304,6 +3308,7 @@ class appDevDebugProjectContainer extends Container
                 'AsseticBundle' => 'Symfony\\Bundle\\AsseticBundle\\AsseticBundle',
                 'DoctrineBundle' => 'Doctrine\\Bundle\\DoctrineBundle\\DoctrineBundle',
                 'SensioFrameworkExtraBundle' => 'Sensio\\Bundle\\FrameworkExtraBundle\\SensioFrameworkExtraBundle',
+                'PublicBundle' => 'baraut\\PublicBundle\\PublicBundle',
                 'AcmeDemoBundle' => 'Acme\\DemoBundle\\AcmeDemoBundle',
                 'WebProfilerBundle' => 'Symfony\\Bundle\\WebProfilerBundle\\WebProfilerBundle',
                 'SensioDistributionBundle' => 'Sensio\\Bundle\\DistributionBundle\\SensioDistributionBundle',

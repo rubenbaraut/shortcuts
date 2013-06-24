@@ -1,5 +1,5 @@
 <?php
-
+date_default_timezone_set('Europe/Madrid');
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use Composer\Autoload\ClassLoader;
 

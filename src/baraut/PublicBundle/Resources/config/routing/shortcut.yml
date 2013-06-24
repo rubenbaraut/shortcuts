@@ -1,0 +1,30 @@
+shortcut:
+    pattern:  /
+    defaults: { _controller: "PublicBundle:Shortcut:index" }
+
+shortcut_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "PublicBundle:Shortcut:show" }
+
+shortcut_new:
+    pattern:  /new
+    defaults: { _controller: "PublicBundle:Shortcut:new" }
+
+shortcut_create:
+    pattern:  /create
+    defaults: { _controller: "PublicBundle:Shortcut:create" }
+    requirements: { _method: post }
+
+shortcut_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "PublicBundle:Shortcut:edit" }
+
+shortcut_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "PublicBundle:Shortcut:update" }
+    requirements: { _method: post|put }
+
+shortcut_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "PublicBundle:Shortcut:delete" }
+    requirements: { _method: post|delete }

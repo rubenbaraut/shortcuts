@@ -1,0 +1,49 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Shortcut list</h1>
+
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Command</th>
+                <th>Description</th>
+                <th>Plataform</th>
+                <th>Program</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('shortcut_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.name }}</td>
+                <td>{{ entity.command }}</td>
+                <td>{{ entity.description }}</td>
+                <td>{{ entity.plataform }}</td>
+                <td>{{ entity.program }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a class="btn" href="{{ path('shortcut_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a class="btn" href="{{ path('shortcut_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a class="btn" href="{{ path('shortcut_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

@@ -1,0 +1,30 @@
+program:
+    pattern:  /
+    defaults: { _controller: "PublicBundle:Program:index" }
+
+program_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "PublicBundle:Program:show" }
+
+program_new:
+    pattern:  /new
+    defaults: { _controller: "PublicBundle:Program:new" }
+
+program_create:
+    pattern:  /create
+    defaults: { _controller: "PublicBundle:Program:create" }
+    requirements: { _method: post }
+
+program_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "PublicBundle:Program:edit" }
+
+program_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "PublicBundle:Program:update" }
+    requirements: { _method: post|put }
+
+program_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "PublicBundle:Program:delete" }
+    requirements: { _method: post|delete }

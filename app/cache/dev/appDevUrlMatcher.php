@@ -133,6 +133,131 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
+        // public_homepage
+        if (0 === strpos($pathinfo, '/hello') && preg_match('#^/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'public_homepage')), array (  '_controller' => 'baraut\\PublicBundle\\Controller\\DefaultController::indexAction',));
+        }
+
+        if (0 === strpos($pathinfo, '/shortcut')) {
+            // shortcut
+            if (rtrim($pathinfo, '/') === '/shortcut') {
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'shortcut');
+                }
+
+                return array (  '_controller' => 'baraut\\PublicBundle\\Controller\\ShortcutController::indexAction',  '_route' => 'shortcut',);
+            }
+
+            // shortcut_show
+            if (preg_match('#^/shortcut/(?P<id>[^/]++)/show$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'shortcut_show')), array (  '_controller' => 'baraut\\PublicBundle\\Controller\\ShortcutController::showAction',));
+            }
+
+            // shortcut_new
+            if ($pathinfo === '/shortcut/new') {
+                return array (  '_controller' => 'baraut\\PublicBundle\\Controller\\ShortcutController::newAction',  '_route' => 'shortcut_new',);
+            }
+
+            // shortcut_create
+            if ($pathinfo === '/shortcut/create') {
+                if ($this->context->getMethod() != 'POST') {
+                    $allow[] = 'POST';
+                    goto not_shortcut_create;
+                }
+
+                return array (  '_controller' => 'baraut\\PublicBundle\\Controller\\ShortcutController::createAction',  '_route' => 'shortcut_create',);
+            }
+            not_shortcut_create:
+
+            // shortcut_edit
+            if (preg_match('#^/shortcut/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'shortcut_edit')), array (  '_controller' => 'baraut\\PublicBundle\\Controller\\ShortcutController::editAction',));
+            }
+
+            // shortcut_update
+            if (preg_match('#^/shortcut/(?P<id>[^/]++)/update$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('POST', 'PUT'))) {
+                    $allow = array_merge($allow, array('POST', 'PUT'));
+                    goto not_shortcut_update;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'shortcut_update')), array (  '_controller' => 'baraut\\PublicBundle\\Controller\\ShortcutController::updateAction',));
+            }
+            not_shortcut_update:
+
+            // shortcut_delete
+            if (preg_match('#^/shortcut/(?P<id>[^/]++)/delete$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('POST', 'DELETE'))) {
+                    $allow = array_merge($allow, array('POST', 'DELETE'));
+                    goto not_shortcut_delete;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'shortcut_delete')), array (  '_controller' => 'baraut\\PublicBundle\\Controller\\ShortcutController::deleteAction',));
+            }
+            not_shortcut_delete:
+
+        }
+
+        if (0 === strpos($pathinfo, '/program')) {
+            // program
+            if (rtrim($pathinfo, '/') === '/program') {
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'program');
+                }
+
+                return array (  '_controller' => 'baraut\\PublicBundle\\Controller\\ProgramController::indexAction',  '_route' => 'program',);
+            }
+
+            // program_show
+            if (preg_match('#^/program/(?P<id>[^/]++)/show$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'program_show')), array (  '_controller' => 'baraut\\PublicBundle\\Controller\\ProgramController::showAction',));
+            }
+
+            // program_new
+            if ($pathinfo === '/program/new') {
+                return array (  '_controller' => 'baraut\\PublicBundle\\Controller\\ProgramController::newAction',  '_route' => 'program_new',);
+            }
+
+            // program_create
+            if ($pathinfo === '/program/create') {
+                if ($this->context->getMethod() != 'POST') {
+                    $allow[] = 'POST';
+                    goto not_program_create;
+                }
+
+                return array (  '_controller' => 'baraut\\PublicBundle\\Controller\\ProgramController::createAction',  '_route' => 'program_create',);
+            }
+            not_program_create:
+
+            // program_edit
+            if (preg_match('#^/program/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'program_edit')), array (  '_controller' => 'baraut\\PublicBundle\\Controller\\ProgramController::editAction',));
+            }
+
+            // program_update
+            if (preg_match('#^/program/(?P<id>[^/]++)/update$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('POST', 'PUT'))) {
+                    $allow = array_merge($allow, array('POST', 'PUT'));
+                    goto not_program_update;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'program_update')), array (  '_controller' => 'baraut\\PublicBundle\\Controller\\ProgramController::updateAction',));
+            }
+            not_program_update:
+
+            // program_delete
+            if (preg_match('#^/program/(?P<id>[^/]++)/delete$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('POST', 'DELETE'))) {
+                    $allow = array_merge($allow, array('POST', 'DELETE'));
+                    goto not_program_delete;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'program_delete')), array (  '_controller' => 'baraut\\PublicBundle\\Controller\\ProgramController::deleteAction',));
+            }
+            not_program_delete:
+
+        }
+
         // _welcome
         if (rtrim($pathinfo, '/') === '') {
             if (substr($pathinfo, -1) !== '/') {
